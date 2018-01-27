@@ -1,5 +1,4 @@
-﻿using PirateRadioLibrary.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,23 +7,81 @@ namespace PirateRadioLibrary
     public class ScoreEngine
     {
         private const double GROWTHRATEPERSECOND = 5;
+
         private const double DEADAIRGRACEPERIODINSECONDS = 3;
         private const double DEADAIRDEDUCTIONRATEPERSECOND = 3;
 
+        private const double POLICEGRACEPERIODINSECONDS = 10;
+        private const double POLICEDEDUCTIONRATEPERSECOND = 3;
+
+        private const double RADIOINTERFERENCEGRACEPERIODINSECONDS = 3;
+        private const double RADIOINTERFERENCEDEDUCTIONRATEPERSECOND = 3;
+
+
         private DateTime _startTime;
         private DateTime _previousUpdateTime;
-        private bool _transmitting;
-        private DateTime _transmittionStopedTime;
-
+        
         public double CurrentScore { get; set; }
         public TimeSpan CurrentGameTime { get; set; }
         public double CurrentScoreRate { get; set; }
 
-        public TapePlayer TapePlayer { get; set; }
-        public Aerial Aerial { get; set; }
-        public Radio Radio { get; set; }
-        public PowerSwitch PowerSwitch { get;set;}
-        public Shutters Shutters { get; set; }
+        private bool _tapePlayerPlaying;
+        private DateTime _tapePlayerOffTime;
+        private bool TapePlayerPlaying { get { return _tapePlayerPlaying; } set { if (_tapePlayerPlaying && !value) { _tapePlayerOffTime = DateTime.Now; } _tapePlayerPlaying = value; } }
+
+        public void PlayTape(string name)
+        {
+            TapePlayerPlaying = true;
+        }
+
+        public void TapeStopped()
+        {
+            TapePlayerPlaying = false;
+        }
+
+        private bool _radioInterference;
+        private DateTime _radioInterferenceTime;
+        public bool RadioInterference { get { return _radioInterference; } set { if (!_radioInterference && value) { _radioInterferenceTime = DateTime.Now; } _radioInterference = value; } }
+
+        private DateTime _policeOffTime;
+        private bool _aerialExtended;
+        public bool AerialExtended
+        {
+            get { return _aerialExtended; }
+            set {
+                if (_powerSwitchOn && _shuttersOpen && _aerialExtended && !value)
+                {
+                    _policeOffTime = DateTime.Now;
+                }
+                _aerialExtended = value;
+            }
+        }
+        private bool _powerSwitchOn;
+        public bool PowerSwitchOn
+        {
+            get { return _powerSwitchOn; }
+            set
+            {
+                if (_powerSwitchOn && _shuttersOpen && _aerialExtended && !value)
+                {
+                    _policeOffTime = DateTime.Now;
+                }
+                _powerSwitchOn = value;
+            }
+        }
+        private bool _shuttersOpen;
+        public bool ShuttersOpen
+        {
+            get { return _shuttersOpen; }
+            set
+            {
+                if (_powerSwitchOn && _shuttersOpen && _aerialExtended && !value)
+                {
+                    _policeOffTime = DateTime.Now;
+                }
+                _shuttersOpen = value;
+            }
+        }
 
         public ScoreEngine()
         {
@@ -33,11 +90,11 @@ namespace PirateRadioLibrary
 
         public void Reset()
         {
-            TapePlayer = new TapePlayer { Playing = true };
-            Aerial = new Aerial { Extended = true };
-            Radio = new Radio { ClearSignal = true };
-            PowerSwitch = new PowerSwitch { On = true };
-            Shutters = new Shutters { Open = true };
+            TapePlayerPlaying = true;
+            AerialExtended = true ;
+            RadioInterference = false;
+            PowerSwitchOn = true;
+            ShuttersOpen = true;
 
             CurrentScore = 0;
             CurrentScoreRate = 0;
@@ -63,30 +120,29 @@ namespace PirateRadioLibrary
             var previousScore = CurrentScore;
 
             // Base Score Change - only if transmitting
-            if (PowerSwitch.On && Shutters.Open && Aerial.Extended && TapePlayer.Playing)
+            if (PowerSwitchOn && ShuttersOpen && AerialExtended && TapePlayerPlaying)
             {
-                _transmitting = true;
                 CurrentScore += diff.TotalSeconds * GROWTHRATEPERSECOND;
             }
-            else
+            
+            // police detractors
+            if((!PowerSwitchOn || !ShuttersOpen || !AerialExtended) && (now - _policeOffTime).TotalSeconds > POLICEGRACEPERIODINSECONDS)
             {
-                if (_transmitting == true)
-                {
-                    _transmittionStopedTime = now;
-                    _transmitting = false;
-                }
+                CurrentScore += diff.TotalSeconds * (POLICEDEDUCTIONRATEPERSECOND * -1) ;
             }
 
-            // Dead air detractors
-            if(!_transmitting && (now - _transmittionStopedTime).TotalSeconds > DEADAIRGRACEPERIODINSECONDS)
+            // Dead air/tape-off detractors
+            if (!TapePlayerPlaying && (now - _tapePlayerOffTime).TotalSeconds > DEADAIRGRACEPERIODINSECONDS)
             {
-                CurrentScore += ((now - _transmittionStopedTime).TotalSeconds - DEADAIRGRACEPERIODINSECONDS) * (DEADAIRDEDUCTIONRATEPERSECOND * -1) ;
+                CurrentScore += diff.TotalSeconds * (DEADAIRDEDUCTIONRATEPERSECOND * -1);
             }
 
             // Interference detractors
-
-            // Tape cut off early detractors
-
+            if (_radioInterference && (now - _radioInterferenceTime).TotalSeconds > RADIOINTERFERENCEGRACEPERIODINSECONDS)
+            {
+                CurrentScore += diff.TotalSeconds * (RADIOINTERFERENCEDEDUCTIONRATEPERSECOND * -1);
+            }
+            
             // Same old music detractors
 
             // Figure out rate

@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PirateRadioLibrary;
-using PirateRadioLibrary.Models;
 
 namespace Tester
 {
@@ -62,12 +61,12 @@ namespace Tester
 
         private void PowerSwitch_CheckedChanged(object sender, EventArgs e)
         {
-            ScoreEngine.PowerSwitch.On = PowerSwitch.Checked;
+            ScoreEngine.PowerSwitchOn = PowerSwitch.Checked;
         }
 
         private void aerial_CheckedChanged(object sender, EventArgs e)
         {
-            ScoreEngine.Aerial.Extended = aerial.Checked;
+            ScoreEngine.AerialExtended = aerial.Checked;
         }
 
         private void tape1_CheckedChanged(object sender, EventArgs e)
@@ -105,7 +104,7 @@ namespace Tester
 
         private void ShuttersOpen_CheckedChanged(object sender, EventArgs e)
         {
-            ScoreEngine.Shutters.Open = ShuttersOpen.Checked;
+            ScoreEngine.ShuttersOpen = ShuttersOpen.Checked;
         }
     }
 }
