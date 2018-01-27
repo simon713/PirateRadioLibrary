@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PirateRadioLibrary", "PirateRadioLibrary\PirateRadioLibrary.csproj", "{D1C45169-EC42-4B1B-B113-CCB96B6935F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PirateRadioLibrary", "PirateRadioLibrary\PirateRadioLibrary.csproj", "{D1C45169-EC42-4B1B-B113-CCB96B6935F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PirateRadioLibrary.Tests", "PirateRadioLibrary.Tests\PirateRadioLibrary.Tests.csproj", "{A60F339D-949A-4DAD-9B14-D9BFC75CED03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{F04DF505-C300-47FB-8AB7-4CE82F1E8650}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{D1C45169-EC42-4B1B-B113-CCB96B6935F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1C45169-EC42-4B1B-B113-CCB96B6935F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1C45169-EC42-4B1B-B113-CCB96B6935F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A60F339D-949A-4DAD-9B14-D9BFC75CED03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60F339D-949A-4DAD-9B14-D9BFC75CED03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60F339D-949A-4DAD-9B14-D9BFC75CED03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60F339D-949A-4DAD-9B14-D9BFC75CED03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F04DF505-C300-47FB-8AB7-4CE82F1E8650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04DF505-C300-47FB-8AB7-4CE82F1E8650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04DF505-C300-47FB-8AB7-4CE82F1E8650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04DF505-C300-47FB-8AB7-4CE82F1E8650}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
