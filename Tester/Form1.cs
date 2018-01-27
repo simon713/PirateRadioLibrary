@@ -7,29 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PirateRadioLibrary;
+using PirateRadioLibrary.Models;
 
 namespace Tester
 {
     public partial class Form1 : Form
     {
+        private ScoreEngine ScoreEngine;
+
         public Form1()
         {
             InitializeComponent();
+
+            ScoreEngine = new ScoreEngine();
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void StartGame_Click(object sender, EventArgs e)
         {
-
+            ScoreEngine.Start();
+            timer1.Start();
         }
 
         private void Reset_Click(object sender, EventArgs e)
         {
-
+            timer1.Stop();
+            ScoreEngine.Reset();
         }
 
         private void Play_Click(object sender, EventArgs e)
@@ -57,14 +60,14 @@ namespace Tester
 
         }
 
-        private void KillSwitch_CheckedChanged(object sender, EventArgs e)
+        private void PowerSwitch_CheckedChanged(object sender, EventArgs e)
         {
-
+            ScoreEngine.PowerSwitch.On = PowerSwitch.Checked;
         }
 
         private void aerial_CheckedChanged(object sender, EventArgs e)
         {
-
+            ScoreEngine.Aerial.Extended = aerial.Checked;
         }
 
         private void tape1_CheckedChanged(object sender, EventArgs e)
@@ -90,6 +93,19 @@ namespace Tester
         private void tape5_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ScoreEngine.Update();
+            Rate.Text = ScoreEngine.CurrentScoreRate.ToString();
+            Score.Text = ScoreEngine.CurrentScore.ToString();
+            Time.Text = ScoreEngine.CurrentGameTime.ToString();
+        }
+
+        private void ShuttersOpen_CheckedChanged(object sender, EventArgs e)
+        {
+            ScoreEngine.Shutters.Open = ShuttersOpen.Checked;
         }
     }
 }

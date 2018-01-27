@@ -4,7 +4,10 @@ using System.Text;
 
 namespace PirateRadioLibrary.Models
 {
-    class TapePlayer
+    public class TapePlayer
     {
+        public bool Playing { get; set; }
+        public DateTime StartTime { get; set; }
+        public Tape CurrentTape { get; set; }
     }
 }

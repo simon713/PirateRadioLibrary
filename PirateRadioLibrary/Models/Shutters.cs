@@ -4,7 +4,8 @@ using System.Text;
 
 namespace PirateRadioLibrary.Models
 {
-    class KillSwitch
+    public class Shutters
     {
+        public bool Open { get; set; }
     }
 }

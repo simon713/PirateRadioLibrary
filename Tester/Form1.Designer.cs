@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tape1 = new System.Windows.Forms.RadioButton();
             this.tape2 = new System.Windows.Forms.RadioButton();
             this.tape3 = new System.Windows.Forms.RadioButton();
@@ -46,9 +47,11 @@
             this.Green = new System.Windows.Forms.RadioButton();
             this.Red = new System.Windows.Forms.RadioButton();
             this.Blue = new System.Windows.Forms.RadioButton();
-            this.KillSwitch = new System.Windows.Forms.CheckBox();
+            this.PowerSwitch = new System.Windows.Forms.CheckBox();
             this.Play = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.ShuttersOpen = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -117,7 +120,9 @@
             // aerial
             // 
             this.aerial.AutoSize = true;
-            this.aerial.Location = new System.Drawing.Point(417, 261);
+            this.aerial.Checked = true;
+            this.aerial.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.aerial.Location = new System.Drawing.Point(417, 212);
             this.aerial.Name = "aerial";
             this.aerial.Size = new System.Drawing.Size(72, 17);
             this.aerial.TabIndex = 5;
@@ -248,16 +253,18 @@
             this.Blue.UseVisualStyleBackColor = true;
             this.Blue.CheckedChanged += new System.EventHandler(this.Blue_CheckedChanged);
             // 
-            // KillSwitch
+            // PowerSwitch
             // 
-            this.KillSwitch.AutoSize = true;
-            this.KillSwitch.Location = new System.Drawing.Point(33, 261);
-            this.KillSwitch.Name = "KillSwitch";
-            this.KillSwitch.Size = new System.Drawing.Size(71, 17);
-            this.KillSwitch.TabIndex = 15;
-            this.KillSwitch.Text = "KillSwitch";
-            this.KillSwitch.UseVisualStyleBackColor = true;
-            this.KillSwitch.CheckedChanged += new System.EventHandler(this.KillSwitch_CheckedChanged);
+            this.PowerSwitch.AutoSize = true;
+            this.PowerSwitch.Checked = true;
+            this.PowerSwitch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.PowerSwitch.Location = new System.Drawing.Point(33, 212);
+            this.PowerSwitch.Name = "PowerSwitch";
+            this.PowerSwitch.Size = new System.Drawing.Size(91, 17);
+            this.PowerSwitch.TabIndex = 15;
+            this.PowerSwitch.Text = "Power Switch";
+            this.PowerSwitch.UseVisualStyleBackColor = true;
+            this.PowerSwitch.CheckedChanged += new System.EventHandler(this.PowerSwitch_CheckedChanged);
             // 
             // Play
             // 
@@ -278,14 +285,32 @@
             this.label1.TabIndex = 17;
             this.label1.Text = "00:00 - 00:00";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // ShuttersOpen
+            // 
+            this.ShuttersOpen.AutoSize = true;
+            this.ShuttersOpen.Checked = true;
+            this.ShuttersOpen.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ShuttersOpen.Location = new System.Drawing.Point(218, 212);
+            this.ShuttersOpen.Name = "ShuttersOpen";
+            this.ShuttersOpen.Size = new System.Drawing.Size(94, 17);
+            this.ShuttersOpen.TabIndex = 18;
+            this.ShuttersOpen.Text = "Shutters Open";
+            this.ShuttersOpen.UseVisualStyleBackColor = true;
+            this.ShuttersOpen.CheckedChanged += new System.EventHandler(this.ShuttersOpen_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 409);
+            this.Controls.Add(this.ShuttersOpen);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Play);
-            this.Controls.Add(this.KillSwitch);
+            this.Controls.Add(this.PowerSwitch);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.trackBar1);
@@ -328,9 +353,11 @@
         private System.Windows.Forms.RadioButton Blue;
         private System.Windows.Forms.RadioButton Green;
         private System.Windows.Forms.RadioButton Red;
-        private System.Windows.Forms.CheckBox KillSwitch;
+        private System.Windows.Forms.CheckBox PowerSwitch;
         private System.Windows.Forms.Button Play;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox ShuttersOpen;
     }
 }
 

@@ -4,7 +4,8 @@ using System.Text;
 
 namespace PirateRadioLibrary.Models
 {
-    class Phone
+    public class PowerSwitch
     {
+        public bool On { get; set; }
     }
 }

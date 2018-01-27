@@ -4,7 +4,8 @@ using System.Text;
 
 namespace PirateRadioLibrary.Models
 {
-    class Aerial
+    public class Aerial
     {
+        public bool Extended { get; set; }
     }
 }

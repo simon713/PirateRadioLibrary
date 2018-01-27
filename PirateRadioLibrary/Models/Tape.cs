@@ -4,7 +4,9 @@ using System.Text;
 
 namespace PirateRadioLibrary.Models
 {
-    class Tape
+    public class Tape
     {
+        public int Duration { get; set; }
+        public string Name { get; set; }
     }
 }

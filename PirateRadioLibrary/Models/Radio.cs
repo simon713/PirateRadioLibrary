@@ -4,7 +4,8 @@ using System.Text;
 
 namespace PirateRadioLibrary.Models
 {
-    class Radio
+    public class Radio
     {
+        public bool ClearSignal { get; set; }
     }
 }
