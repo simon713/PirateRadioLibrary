@@ -18,7 +18,6 @@ namespace Tester
         public Form1()
         {
             InitializeComponent();
-
             ScoreEngine = new ScoreEngine();
         }
         
@@ -32,33 +31,14 @@ namespace Tester
         {
             timer1.Stop();
             ScoreEngine.Reset();
+
+            _tapePlaying = false;
+            TapePlaying.Checked = false;
+            Interference.Checked = false;
+            aerial.Checked = true;
+            PowerSwitch.Checked = true;
         }
-
-        private void Play_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Blue_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Red_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Green_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void PowerSwitch_CheckedChanged(object sender, EventArgs e)
         {
             ScoreEngine.PowerSwitchOn = PowerSwitch.Checked;
@@ -68,32 +48,7 @@ namespace Tester
         {
             ScoreEngine.AerialExtended = aerial.Checked;
         }
-
-        private void tape1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tape2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tape3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tape4_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tape5_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
             ScoreEngine.Update();
@@ -102,9 +57,28 @@ namespace Tester
             Time.Text = ScoreEngine.CurrentGameTime.ToString();
         }
 
-        private void ShuttersOpen_CheckedChanged(object sender, EventArgs e)
+        private void Interference_CheckedChanged(object sender, EventArgs e)
         {
-            ScoreEngine.ShuttersOpen = ShuttersOpen.Checked;
+            ScoreEngine.RadioInterference = Interference.Checked;
+        }
+
+        private bool _tapePlaying = false;
+
+        private void TapePlaying_CheckedChanged(object sender, EventArgs e)
+        {
+            if(_tapePlaying != TapePlaying.Checked)
+            {
+                if(TapePlaying.Checked)
+                {
+                    ScoreEngine.PlayTape("test");
+                }
+                else
+                {
+                    ScoreEngine.TapeStopped();
+                }
+            }
+
+            _tapePlaying = TapePlaying.Checked;
         }
     }
 }
