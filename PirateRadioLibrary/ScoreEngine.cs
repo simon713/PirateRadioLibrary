@@ -8,11 +8,11 @@ namespace PirateRadioLibrary
     {
         private const double GROWTHRATEPERSECOND = 5;
 
-        private const double TAPESTOPPEDGRACEPERIODINSECONDS = 3;
+        private const double TAPESTOPPEDGRACEPERIODINSECONDS = 4;
         private const double POLICEGRACEPERIODINSECONDS = 10;
-        private const double DEADAIRDEDUCTIONRATEPERSECOND = 3;
+        private const double DEADAIRDEDUCTIONRATEPERSECOND = 2;
 
-        private const double RADIOINTERFERENCEGRACEPERIODINSECONDS = 3;
+        private const double RADIOINTERFERENCEGRACEPERIODINSECONDS = 8;
         private const double RADIOINTERFERENCEDEDUCTIONRATEPERSECOND = 3;
 
 
